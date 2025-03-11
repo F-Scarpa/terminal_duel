@@ -24,6 +24,12 @@ def cp_checker(champion):
     if champion.cp > champion.totalcp:
         champion.cp = champion.totalcp
 
+#items durations buff
+def check_vampiric_aegis(champion):
+    if champion.vampiric_aegis_buff > 0:
+        champion.vampiric_aegis_buff -= 1
+        print(color_cyan(f"Vampiric aegis buff will last {champion.vampiric_aegis_buff} more turns"))
+
 
 #warrior buffs
 def check_warrior_spirit_buff_remaining(champion):
@@ -36,6 +42,8 @@ def check_warrior_spirit_buff_remaining(champion):
 
 #full buff check
 def check_all_buffs(champion):
+     #items
+     check_vampiric_aegis(champion)
      #warrior
      if champion.game_class == "warrior":
         check_warrior_spirit_buff_remaining(champion)
@@ -73,7 +81,7 @@ def start_turn_events(champion,enemy):
         hp_regen = (champion.totalhp/100) * 3
         champion.hp += hp_regen
         print("\033[32mTrolls regenerates 3% of their total hp every turn\033[0m")
-    if champion.race == "gnome":
+    if champion.race == "gnome" and hasattr(champion,"mana"):
         mana_regen = (champion.totalhp/100) * 5
         champion.mana += mana_regen
 

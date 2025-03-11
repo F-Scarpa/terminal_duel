@@ -44,6 +44,8 @@ def store(champion):
     match to_buy:
         case "Healing Potion":
             buy_item(champion,to_buy)
+        case "Vampiric Aegis":
+            buy_item(champion,to_buy)
         case "Soulpiercer Dagger":
             buy_item(champion,to_buy)
         case "Fire Candy":

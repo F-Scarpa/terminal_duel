@@ -21,16 +21,22 @@ class CommonActions():
         self.total_coins = 20 + 99999
         self.first_aid_duration = 0
 
+        #general buffs
+        self.vampiric_aegis_buff = 0
+
         #starting items count
         self.hank_num = 1
-        self.heal_pot_num = 1
-        self.fire_candy_num = 1
-        self.soulpiercer_dagger_num = 1
+        self.heal_pot_num = 0
+        self.fire_candy_num = 0
+        self.soulpiercer_dagger_num = 0
+        self.vampiric_aegis_num = 1
+
         #items => name:[num,description,cost]
         self.consumables = {
                        "Healing Potion":[self.heal_pot_num,"Heal yourself for 50% total hp",15],
                        "Fire Candy":[self.fire_candy_num,"Deals 100 damage to the enemy",10],
                        "Soulpiercer Dagger":[self.soulpiercer_dagger_num,"Steal hp from the enemy",35],
+                       "Vampiric Aegis":[self.vampiric_aegis_num,"For the next 2 turns 10% of the damage will heal you instead",25],
                        "Hank":[self.hank_num,"You fully regain your HP after dying.",100]
                        }
     def is_defeated(self,champion):
@@ -47,6 +53,24 @@ class CommonActions():
         
     def spell_inventory(self,champion,target):
         #items
+        def vampiric_aegis(self,target):
+            # check if item is available
+            if self.consumables["Vampiric Aegis"][0] > 0:
+                self.consumables["Vampiric Aegis"][0] -= 1
+                # logic
+                self.vampiric_aegis_buff = 2
+
+                # print usefull info about what happens
+                print(f"You use a vampiric aegis to defend yourself!")
+                print(f"you now have {self.consumables["Vampiric Aegis"][0]} Vampiric Aegis")
+            # when you dont have anymore of the selected item
+            else:
+                print(f"{color_red("You have no Vampiric Aegis left")}")
+                return self.spell_inventory(champion,target)
+            return self.vampiric_aegis_num
+        #end////////////////////////////////////////
+
+
         def soulpiercer_dagger(self,target):
             # check if item is available
             if self.consumables["Soulpiercer Dagger"][0] > 0:
@@ -64,7 +88,7 @@ class CommonActions():
                 print(f"{color_red("You have no soulpiercer daggers left")}")
                 return self.spell_inventory(champion,target)
             return self.soulpiercer_dagger_num
-        
+        #end////////////////////////////////////////
 
         def fire_candy(self,target):
             if self.consumables["Fire Candy"][0] > 0:
@@ -109,6 +133,8 @@ class CommonActions():
                 return "back_try"
             case "Soulpiercer Dagger":
                 return soulpiercer_dagger(self,target)
+            case "Vampiric Aegis":
+                return vampiric_aegis(self,target)
             case "Healing Potion":
                 return healing_potion(self)
             case "Fire Candy":

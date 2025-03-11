@@ -1,5 +1,5 @@
 import random
-from colors import color_red
+from colors import color_red,color_green
 class Enemy:
     def __init__(self,name,hp,atk,defe,give_xp,give_coins,loot_chance):
         # stats
@@ -30,9 +30,12 @@ class Enemy:
             if damage <= 0:
                 damage = 1
                 champion.hp -= 1
-            else:
-                champion.hp -= damage
-            print(f"\033[91m{self.name} hit you for {damage}, you have {int(champion.hp)}/{champion.totalhp} hp left\033[0m")
+            if champion.vampiric_aegis_buff > 0:
+                champion.hp += (damage * 0.1)
+                print(color_green(f"Your vampiric aegis heals you for {int(damage*0.1)} hp"))
+                damage *= 0.9
+            champion.hp -= damage
+            print(f"\033[91m{self.name} hit you for {int(damage)}, you have {int(champion.hp)}/{champion.totalhp} hp left\033[0m")
 
  
 enemy_names = [
@@ -56,7 +59,7 @@ def select_enemy():
     return enemy
 
 for name in enemy_names:
-    hp = random.randint(2000, 4000)
+    hp = random.randint(2, 4)
     atk = random.randint(20, 30)
     defe = random.randint(5, 20)
     give_xp = random.randint(10, 20)  # Esperienza casuale tra 10 e 50
