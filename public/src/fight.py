@@ -9,6 +9,8 @@ from won_fight import won_fight
 from orc_racial import orc_racial
 from colors import color_red
 from warrior_buffs import check_warrior_spirit_buff
+from enemy_got_damaged import enemy_got_damaged_events
+
 
 import sys
 import time
@@ -35,6 +37,7 @@ def fight(champion,boss = None):
     
     
     while champion.hp > 0 and enemy.hp > 0:
+        start_turn_enemy_hp = enemy.hp
         res = ""
         cd_printer(champion)
         
@@ -79,7 +82,14 @@ def fight(champion,boss = None):
                 else:
 
                     spell_method()
-                
+                    print(enemy.hp)
+                    print(start_turn_enemy_hp)
+                # check if enemy got damaged, usefull for on-hit effect
+                if  enemy.hp < start_turn_enemy_hp:
+                    enemy_got_damaged_events()
+                else:
+                    print("enemy not damaged")
+
                 player_turn = False
                 turn_counter += 1
                 if res == "back_try" or res == "no mana" or res == "no energy" or res == "no cp":
@@ -153,5 +163,5 @@ def fight(champion,boss = None):
         print("=======================")
 
 
-#champion = Warrior(Orc())
-#fight(champion)
+champion = Warrior(Orc())
+fight(champion)

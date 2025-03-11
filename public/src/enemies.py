@@ -23,8 +23,11 @@ class Enemy:
         self.cc_status = "ok"
         #thief cc
         self.shadowstep_cc = 0
+    
+         
 
     def attack(self,champion):
+       
         if self.cc_status == "ok":
             damage = self.atk - champion.defence
             if damage <= 0:
@@ -59,7 +62,7 @@ def select_enemy():
     return enemy
 
 for name in enemy_names:
-    hp = random.randint(2, 4)
+    hp = random.randint(200, 400)
     atk = random.randint(20, 30)
     defe = random.randint(5, 20)
     give_xp = random.randint(10, 20)  # Esperienza casuale tra 10 e 50
