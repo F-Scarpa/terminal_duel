@@ -48,6 +48,8 @@ def store(champion):
             buy_item(champion,to_buy)
         case "Soulpiercer Dagger":
             buy_item(champion,to_buy)
+        case "Thunderbrand":
+            buy_item(champion,to_buy)
         case "Fire Candy":
             buy_item(champion,to_buy)
         case "Hank":

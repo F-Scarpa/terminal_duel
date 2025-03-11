@@ -86,9 +86,9 @@ def fight(champion,boss = None):
                     print(start_turn_enemy_hp)
                 # check if enemy got damaged, usefull for on-hit effect
                 if  enemy.hp < start_turn_enemy_hp:
-                    enemy_got_damaged_events()
-                else:
-                    print("enemy not damaged")
+                    enemy_got_damaged_events(champion,enemy)
+                #else:
+                    #print("enemy not damaged")
 
                 player_turn = False
                 turn_counter += 1
@@ -163,5 +163,5 @@ def fight(champion,boss = None):
         print("=======================")
 
 
-champion = Warrior(Orc())
-fight(champion)
+#champion = Warrior(Orc())
+#fight(champion)

@@ -23,17 +23,20 @@ class CommonActions():
 
         #general buffs
         self.vampiric_aegis_buff = 0
+        self.thunderbrand_buff = 0
 
         #starting items count
         self.hank_num = 1
         self.heal_pot_num = 0
         self.fire_candy_num = 0
         self.soulpiercer_dagger_num = 0
-        self.vampiric_aegis_num = 1
+        self.vampiric_aegis_num = 0
+        self.thunderbrand_num = 1
 
         #items => name:[num,description,cost]
         self.consumables = {
                        "Healing Potion":[self.heal_pot_num,"Heal yourself for 50% total hp",15],
+                       "Thunderbrand":[self.thunderbrand_num,"Gives you a 50% chance to stun the enemy on hit for 1 turn in the next 4 turns",30],
                        "Fire Candy":[self.fire_candy_num,"Deals 100 damage to the enemy",10],
                        "Soulpiercer Dagger":[self.soulpiercer_dagger_num,"Steal hp from the enemy",35],
                        "Vampiric Aegis":[self.vampiric_aegis_num,"For the next 2 turns 10% of the damage will heal you instead",25],
@@ -68,6 +71,23 @@ class CommonActions():
                 print(f"{color_red("You have no Vampiric Aegis left")}")
                 return self.spell_inventory(champion,target)
             return self.vampiric_aegis_num
+        #end////////////////////////////////////////
+
+        def thunderbrand(self):
+            # check if item is available
+            if self.consumables["Thunderbrand"][0] > 0:
+                self.consumables["Thunderbrand"][0] -= 1
+                # logic
+                self.thunderbrand_buff = 4
+
+                # print usefull info about what happens
+                print(color_cyan("You break a magical seal, unleashing the power of thunder within you!"))
+                print(f"You now have {self.consumables["Thunderbrand"][0]} Thunderbrands")
+            # when you dont have anymore of the selected item
+            else:
+                print(f"{color_red("You have no Thunderbrands left")}")
+                return self.spell_inventory(champion,target)
+            return self.thunderbrand_num
         #end////////////////////////////////////////
 
 
@@ -133,6 +153,8 @@ class CommonActions():
                 return "back_try"
             case "Soulpiercer Dagger":
                 return soulpiercer_dagger(self,target)
+            case "Thunderbrand":
+                return thunderbrand(self)
             case "Vampiric Aegis":
                 return vampiric_aegis(self,target)
             case "Healing Potion":
