@@ -10,5 +10,5 @@ def enemy_got_damaged_events(champion,enemy):
     
     if champion.game_class == "thief":
         if champion.shadowstep_buff:
-            shadowstep_buff = False
+            champion.shadowstep_buff = False
 

@@ -1,5 +1,8 @@
-def check_shadowstep_buff(champion,modifier):
-    if champion.game_class == "thief":
-        if champion.shadowstep_buff:
-            champion.attack *= 1.4
+def check_shadowstep_buff(champion):
+    if champion.shadowstep_buff:
+        champion.attack *= 1.4
+
+def check_all_thief_buffs(champion,enemy):
+    check_shadowstep_buff(champion)
+
             
