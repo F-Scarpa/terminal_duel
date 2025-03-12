@@ -412,8 +412,7 @@ class Thief(Races,CommonActions):
                     damage *= 2.5
                 case 5:
                     damage *= 6
-            if self.shadowstep_buff:
-                damage *= 1.5
+
             target.hp -= int(damage)
             self.cp = 0
             print(color_yellow(f"You hit {target.name} for {int(damage)} damage"))
@@ -449,9 +448,7 @@ class Thief(Races,CommonActions):
             if target.hp == target.totalhp:
                 damage = int(damage * 2 )
                 self.cp += 1
-            if self.shadowstep_buff:
-                damage = int(damage * 1.5)
-                self.shadowstep_buff = False
+
             target.hp -= damage
             self.cp += 1
             print(color_yellow(f"You hit {target.name} for {damage} damage"))

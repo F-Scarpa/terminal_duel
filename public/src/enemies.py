@@ -62,10 +62,10 @@ def select_enemy():
     return enemy
 
 for name in enemy_names:
-    hp = random.randint(2, 4)
-    atk = random.randint(20, 30)
-    defe = random.randint(5, 20)
-    give_xp = random.randint(10, 20)  # Esperienza casuale tra 10 e 50
+    hp = random.randint(200, 400)
+    atk = random.randint(1, 1)
+    defe = random.randint(0, 0)
+    give_xp = random.randint(1, 1)  # Esperienza casuale tra 10 e 50
     give_coins = random.randint(3, 15)  # Monete casuali tra 3 e 15
 
     create_enemy(name, hp, atk, defe, give_xp, give_coins)

@@ -10,6 +10,7 @@ from orc_racial import orc_racial
 from colors import color_red
 from warrior_buffs import check_warrior_spirit_buff
 from enemy_got_damaged import enemy_got_damaged_events
+from check_modifier_buffs import check_all_buffs
 
 
 import sys
@@ -73,8 +74,10 @@ def fight(champion,boss = None):
                 orc_racial(champion,30)
                 # warrior buff init
 
-                check_warrior_spirit_buff(champion,+50)
-                
+                #check_warrior_spirit_buff(champion,+50)
+                check_all_buffs(champion,enemy)
+
+
                 #print(champion.attack)
 
                 if params_num == 1:
@@ -115,8 +118,7 @@ def fight(champion,boss = None):
                 #orc racial
                 if orc_r == True:
                     orc_racial(champion,-30)
-                #warrior buff reset
-                #check_warrior_spirit_buff(champion,-50)
+
                 won_fight(champion,enemy)
                 break
             
@@ -135,17 +137,14 @@ def fight(champion,boss = None):
                     # orc racial
                     if orc_r == True:
                         orc_racial(champion,-30)
-                    #warrior buff reset
-                    #check_warrior_spirit_buff(champion,-50)
+
                     won_fight(champion,enemy)
                     
                 break
 
             enemy.attack(champion)
 
-            # check if turn is not the current one where buff was activated
-            #if champion.game_class is "warrior" and champion.warrior_spirit_buff < 5:
-                #check_warrior_spirit_buff(champion,-50)
+
 
             start_turn_events(champion,enemy)
             
