@@ -16,11 +16,12 @@ import sys
 import time
 import inspect
 
+def reset_stats(champion):
+    champion.attack = champion.dummy_attack
+    champion.defence = champion.dummy_defence
+
 
 __names_list = []
-
-
-
 
 def fight(champion,boss = None):
     spellbook = get_spellbook(champion)
@@ -37,6 +38,7 @@ def fight(champion,boss = None):
     
     
     while champion.hp > 0 and enemy.hp > 0:
+        reset_stats(champion)
         start_turn_enemy_hp = enemy.hp
         res = ""
         cd_printer(champion)
@@ -70,7 +72,9 @@ def fight(champion,boss = None):
                 orc_r = orc_racial(champion,30)
                 orc_racial(champion,30)
                 # warrior buff init
+
                 check_warrior_spirit_buff(champion,+50)
+                
                 #print(champion.attack)
 
                 if params_num == 1:
@@ -87,8 +91,7 @@ def fight(champion,boss = None):
                 # check if enemy got damaged, usefull for on-hit effect
                 if  enemy.hp < start_turn_enemy_hp:
                     enemy_got_damaged_events(champion,enemy)
-                #else:
-                    #print("enemy not damaged")
+
 
                 player_turn = False
                 turn_counter += 1
@@ -113,7 +116,7 @@ def fight(champion,boss = None):
                 if orc_r == True:
                     orc_racial(champion,-30)
                 #warrior buff reset
-                check_warrior_spirit_buff(champion,-50)
+                #check_warrior_spirit_buff(champion,-50)
                 won_fight(champion,enemy)
                 break
             
@@ -133,15 +136,17 @@ def fight(champion,boss = None):
                     if orc_r == True:
                         orc_racial(champion,-30)
                     #warrior buff reset
-                    check_warrior_spirit_buff(champion,-50)
+                    #check_warrior_spirit_buff(champion,-50)
                     won_fight(champion,enemy)
                     
                 break
 
             enemy.attack(champion)
+
             # check if turn is not the current one where buff was activated
-            if champion.game_class is "warrior" and champion.warrior_spirit_buff < 5:
-                check_warrior_spirit_buff(champion,-50)
+            #if champion.game_class is "warrior" and champion.warrior_spirit_buff < 5:
+                #check_warrior_spirit_buff(champion,-50)
+
             start_turn_events(champion,enemy)
             
             turn_counter += 1

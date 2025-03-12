@@ -217,6 +217,8 @@ class Warrior(Races,CommonActions):
         CommonActions.__init__(self)
         self.totalhp = 20 * race_node.stre
         self.hp = 20 * race_node.stre
+        self.dummy_attack = 2 * race_node.stre
+        self.dummy_defence = (2 * race_node.stre) + race_node.agi
         self.attack = 2 * race_node.stre
         self.defence = (2 * race_node.stre) + race_node.agi
         self.race = race_node.race
@@ -282,6 +284,8 @@ class Mage(Races,CommonActions):
         CommonActions.__init__(self)
         self.totalhp = 15 * race_node.stre
         self.hp = 15 * race_node.stre
+        self.dummy_attack = 4 * race_node.inte
+        self.dummy_defence = race_node.stre // 2
         self.attack = 4 * race_node.inte
         self.defence = race_node.stre // 2
         self.totalmana = 20 * race_node.inte
@@ -367,6 +371,8 @@ class Thief(Races,CommonActions):
         #stats
         self.totalhp = 12 * race_node.stre
         self.hp = 12 * race_node.stre
+        self.dummy_defence = race_node.agi
+        self.dummy_attack = 5 * race_node.agi
         self.attack = 5 * race_node.agi
         self.defence = race_node.agi
         self.race = race_node.race

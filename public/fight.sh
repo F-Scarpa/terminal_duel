@@ -1,1 +1,0 @@
-python3 public/src/fight.py
