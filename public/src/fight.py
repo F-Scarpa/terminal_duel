@@ -74,7 +74,7 @@ def fight(champion,boss = None):
                 orc_racial(champion,30)
                 # warrior buff init
 
-                #check_warrior_spirit_buff(champion,+50)
+                #check all buffs / check_modifier_buffs.py folder
                 check_all_buffs(champion,enemy)
 
 

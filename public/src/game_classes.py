@@ -230,8 +230,10 @@ class Warrior(Races,CommonActions):
         self.intellect = 1
         # durations
         self.warrior_spirit_duration = 0
+        self.berserker_rage_duration = 0
         #buffs
         self.warrior_spirit_buff = 0
+        self.berserker_rage_buff = 0
 
 
 
@@ -263,6 +265,7 @@ class Warrior(Races,CommonActions):
     def spell_warrior_spirit_cd(self,target):
         self.spell_name = "warrior spirit"
         self.spell_description = ""
+        # duration is a cd tracker
         self.warrior_spirit_duration = 10
         self.warrior_spirit_buff = 5
         print("You gain 50 bonus attack damage and defense for 5 turns")
@@ -270,7 +273,18 @@ class Warrior(Races,CommonActions):
     spell_warrior_spirit_cd.spell_name = "Warrior Spirit"
     spell_warrior_spirit_cd.spell_description = f"Increase your attack and defence by 50 points || {color_cyan("no cost / 10 turns cooldown")}"
 
+    def spell_berserker_rage_cd(self,target):
+        spell_name = ""
+        spell_description = ""
+        #duration is a cd tracker
+        self.berserker_rage_duration = 10
+        # _buff is the ampunt of turns the spell will be active
+        self.berserker_rage_buff = 7
+        self.defence = 0
+        print(color_cyan("Fueled by rage, you attack relentlessly, casting aside your own safety!"))
 
+    spell_berserker_rage_cd.spell_name = "Berserker Rage"
+    spell_berserker_rage_cd.spell_description = "Doubles your attack but reduce your defenses to 0 and connot benefit from defenses bonuses"
 
 
     

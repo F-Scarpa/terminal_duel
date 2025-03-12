@@ -41,6 +41,12 @@ def check_warrior_spirit_buff_remaining(champion):
     if getattr(champion,"warrior_spirit_buff") > 0:
          champion.warrior_spirit_buff -= 1
          print(color_cyan(f"Warrior's Spirit will last for {champion.warrior_spirit_buff} more turns"))
+
+
+def check_berserker_rage_buff_remaining(champion):
+    if getattr(champion,"berserker_rage_buff") > 0:
+         champion.berserker_rage_buff -= 1
+         print(color_cyan(f"Berserker's Rage will last for {champion.berserker_rage_buff} more turns"))
     
 
 
@@ -53,6 +59,7 @@ def check_all_buffs(champion):
      #warrior
      if champion.game_class == "warrior":
         check_warrior_spirit_buff_remaining(champion)
+        check_berserker_rage_buff_remaining(champion)
 
 
 #full check
