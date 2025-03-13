@@ -34,7 +34,7 @@ def store(champion):
 
     print(f"{color_cyan(f"""You have {champion.total_coins} coins left\nAvailable Items:""")}")
     for item in items_to_buy:
-        print(f"Buy {item} --> {items_to_buy[item][1]} || COST: {items_to_buy[item][2]} coins || you currently have {champion.consumables[item][0]} {item}s")
+        print(f"Buy {item} --> {items_to_buy[item][1]} ||{ color_red(f"COST: {items_to_buy[item][2]} coins")} || {color_green(f"you currently have {champion.consumables[item][0]} {item}s")}")
     print("Back")
     print("\n")
     to_buy = input("""Type the item you like to buy

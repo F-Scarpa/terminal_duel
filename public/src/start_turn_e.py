@@ -59,7 +59,10 @@ def check_berserker_rage_buff_remaining(champion):
 def check_rewind_time_buff_remaining(champion):
     if getattr(champion,"rewind_time_buff") > 0:
          champion.rewind_time_buff -= 1
-         print(color_cyan(f"Rewind time will activate after {champion.rewind_time_buff} turns"))
+         if champion.rewind_time > 0:
+            print(color_cyan(f"Rewind time will activate after {champion.rewind_time_buff} turns"))
+         else:
+            print(color_cyan(f"Rewind time activated!").upper())
     if champion.rewind_time_buff == 0 and champion.rewind_time_is_active:
         champion.hp = champion.rewind_time_hp
         champion.mana = champion.rewind_time_mana

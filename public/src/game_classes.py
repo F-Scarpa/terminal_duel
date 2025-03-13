@@ -18,7 +18,7 @@ class CommonActions():
     def __init__(self):
         self.total_xp = 0
         self.level = 1
-        self.total_coins = 20 + 99999
+        self.total_coins = 20 
         self.first_aid_duration = 0
 
         #general buffs
@@ -36,7 +36,7 @@ class CommonActions():
         #items => name:[num,description,cost]
         self.consumables = {
                        "Healing Potion":[self.heal_pot_num,"Heal yourself for 50% total hp",15],
-                       "Thunderbrand":[self.thunderbrand_num,"Gives you a 50% chance to stun the enemy on hit for 1 turn in the next 4 turns",30],
+                       "Thunderbrand":[self.thunderbrand_num,"Gives you a 50% chance to stun the enemy on hit for 1 turn also dealing 35 damage in the next 4 turns",30],
                        "Fire Candy":[self.fire_candy_num,"Deals 100 damage to the enemy",10],
                        "Soulpiercer Dagger":[self.soulpiercer_dagger_num,"Steal hp from the enemy",35],
                        "Vampiric Aegis":[self.vampiric_aegis_num,"For the next 2 turns 10% of the damage will heal you instead",25],
@@ -46,7 +46,7 @@ class CommonActions():
         if self.hank_num > 0:
             champion.hp = champion.totalhp
             self.hank_num -= 1
-            print(color_green(f"You died but you used one hank, you're back to full hp and have {color_cyan(f'{self.hank_num} more hanks')}"))
+            print(color_green(f"You died but you used one hank, you're back to full hp and have {color_cyan(f'{self.consumables["Hank"][0]} more hanks')}"))
             
             return False
         else:
@@ -96,7 +96,7 @@ class CommonActions():
             if self.consumables["Soulpiercer Dagger"][0] > 0:
                 self.consumables["Soulpiercer Dagger"][0] -= 1
                 # logic
-                damage = ((champion.totalhp / 100) *20) - target.defe
+                damage = ((champion.totalhp / 100) *10)
                 target.hp = target.hp - damage 
                 champion.hp += damage
 
@@ -177,7 +177,7 @@ class CommonActions():
             heal = (self.totalhp/100) * 15
             self.hp += heal
             self.first_aid_duration = 8
-            print(f"\033[32mYou heal yourself with {self.spell_name} for {heal} hp\033[0m") 
+            print(f"\033[32mYou heal yourself with {self.spell_name} for {int(heal)} hp\033[0m") 
         else:
             print(f"{self.spell_name} still have {self.first_aid_duration} turns duration")
 
@@ -283,7 +283,7 @@ class Warrior(Races,CommonActions):
         # duration is a cd tracker
         self.warrior_spirit_duration = 10
         self.warrior_spirit_buff = 5
-        print("You gain 50 bonus attack damage and defense for 5 turns")
+        print(color_cyan("You gain 50 bonus attack damage and defense for 5 turns"))
 
     spell_warrior_spirit_cd.spell_name = "Warrior Spirit"
     spell_warrior_spirit_cd.spell_description = f"Increase your attack and defence by 50 points || {color_cyan("no cost / 10 turns cooldown")}"
@@ -299,7 +299,7 @@ class Warrior(Races,CommonActions):
         print(color_cyan("Fueled by rage, you attack relentlessly, casting aside your own safety!"))
 
     spell_berserker_rage_cd.spell_name = "Berserker Rage"
-    spell_berserker_rage_cd.spell_description = f"Doubles your attack but reduce your defenses to 0 and connot benefit from defenses bonuses || {color_cyan("no cost / 10 turns cooldown")}"
+    spell_berserker_rage_cd.spell_description = f"Doubles your attack but reduce your defenses to 0 for 7 turns and cannot benefit from defenses bonuses || {color_cyan("no cost / 10 turns cooldown")}"
 
 
     
@@ -421,7 +421,7 @@ class Mage(Races,CommonActions):
             return no_mana_message(self)
     spell_fireball.mana_cost = 20
     spell_fireball.spell_name ="Fireball"
-    spell_fireball.spell_description = f"Hurls a fireball to the enemy dealing istant damage and damage over the next 3 turns || {color_cyan(f"{spell_fireball.mana_cost} mana ")}"
+    spell_fireball.spell_description = f"Hurls a fireball to the enemy dealing istant damage and damage over the next 3 turns, after 3 casts you can cast meteor, this last effect persist after fight || {color_cyan(f"{spell_fireball.mana_cost} mana ")}"
 
     def spell_stop_time_cd(self,target):
         spell_name = ""

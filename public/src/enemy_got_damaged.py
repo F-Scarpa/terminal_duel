@@ -6,6 +6,7 @@ def enemy_got_damaged_events(champion,enemy):
         stun_chance = random.randint(0,100) <= 50
         if stun_chance:
             print(color_yellow(f"Thunder crashes as you hit {enemy.name}, stunning them with its unstoppable force!"))
+            enemy.hp -= 35
             enemy.cc_status = "stunned"
     
     if champion.game_class == "thief":

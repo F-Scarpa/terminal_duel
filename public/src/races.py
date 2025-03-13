@@ -14,9 +14,9 @@ class Races:
     
 class Human(Races):
     def __init__(self):
-        self.stre = 10 + 2
-        self.agi = 10 + 2
-        self.inte = 10 + 2
+        self.stre = 10 + 3
+        self.agi = 10 + 3
+        self.inte = 10 + 3
         self.race = "human"
 
     

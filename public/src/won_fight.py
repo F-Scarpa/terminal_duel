@@ -17,17 +17,17 @@ def lvl_multiplier(champion):
     int_mul = champion.intellect *champion.level
     if main_stat == "str":
         champion.totalhp += 20 * str_mul
-        champion.attack += 2 * str_mul
-        champion.defence += (2 * str_mul) + agi_mul
+        champion.dummy_attack += 2 * str_mul
+        champion.dummy_defence += (2 * str_mul) + agi_mul
         champion.hp += 20 * str_mul
     elif main_stat == "agi":
         champion.totalhp += 12 * str_mul
         champion.hp += 12 * str_mul
-        champion.attack += 5 * agi_mul
+        champion.dummy_attack += 5 * agi_mul
     elif main_stat == "int":
         champion.totalhp += 5 * str_mul
         champion.hp += 5 * str_mul
-        champion.attack += 4 * int_mul
+        champion.dummy_attack += 4 * int_mul
         champion.totalmana += 20 * int_mul
 
 def get_loot(champion,enemy):
@@ -50,6 +50,7 @@ def won_fight(champion,enemy):
         print(f"You gain {enemy.give_xp} XP")
         if champion.total_xp >= needed_xp[champion.level]:
             champion.level += 1
+            print(color_green(f"LEVEL UP!!! you are now level : {champion.level}"))
             lvl_multiplier(champion)
             champion.total_xp -= needed_xp[champion.level-1]
     

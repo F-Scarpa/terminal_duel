@@ -1,7 +1,7 @@
 needed_xp = []
 needed_xp.append(0)
 max_level = 5
-base_xp_needed = 5000
+base_xp_needed = 12
 multiplier = 1
 
 

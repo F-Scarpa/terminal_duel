@@ -47,6 +47,7 @@ def fight(champion,boss = None):
         print("=======================")
         counter = 1
         if turn_counter % 2 == 0 and player_turn == True:
+            print(color_cyan("You can CTRL + c to exit game"))
             
             print("Choose an action:")
             for spell in spellbook:
