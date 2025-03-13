@@ -207,10 +207,6 @@ class CommonActions():
     spell_pass.spell_description = "Wait and do nothing for this turn, regenerate 10% hp and 10% of your resources"
 
 
-
-
-
-
 # Playable classes
 class Warrior(Races,CommonActions):
     def __init__(self,race_node):
@@ -234,6 +230,25 @@ class Warrior(Races,CommonActions):
         #buffs
         self.warrior_spirit_buff = 0
         self.berserker_rage_buff = 0
+        self.sundering_strike_buff = 0
+        self.sundering_strike_used_last_turn = False
+        self.SS_stack = 0
+
+
+    def spell_sundering_strike(self,target):
+        self.spell_name = ""
+        self.spell_description = ""
+        damage = self.attack - target.defe + (self.SS_stack * self.attack)
+        target.hp -= damage
+        if damage <= 0:
+            damage = 1
+        self.sundering_strike_buff = 2
+        self.sundering_strike_used_last_turn = True
+        self.SS_stack += 1
+        print(color_yellow(f"You hit {target.name} for {damage} damage"))
+
+    spell_sundering_strike.spell_name = "Sundering Strike"
+    spell_sundering_strike.spell_description = "Deals incrementing damage with each subsequent use but spell's damage turns back to it's original value if another action other than Sundering Strike is taken"
 
 
 
@@ -284,7 +299,7 @@ class Warrior(Races,CommonActions):
         print(color_cyan("Fueled by rage, you attack relentlessly, casting aside your own safety!"))
 
     spell_berserker_rage_cd.spell_name = "Berserker Rage"
-    spell_berserker_rage_cd.spell_description = "Doubles your attack but reduce your defenses to 0 and connot benefit from defenses bonuses"
+    spell_berserker_rage_cd.spell_description = f"Doubles your attack but reduce your defenses to 0 and connot benefit from defenses bonuses || {color_cyan("no cost / 10 turns cooldown")}"
 
 
     
@@ -292,7 +307,6 @@ class Warrior(Races,CommonActions):
     def __repr__(self):
         return f"hp:{self.hp} / attack:{self.attack} / defence:{self.defence}"
     
-
 class Mage(Races,CommonActions):
     def __init__(self,race_node):
         CommonActions.__init__(self)
@@ -378,7 +392,6 @@ class Mage(Races,CommonActions):
     def __repr__(self):
         return f"hp:{self.hp} / mana:{self.mana} / attack:{self.attack} / defence:{self.defence}"
     
-
 class Thief(Races,CommonActions):
     def __init__(self,race_node):
         CommonActions.__init__(self)

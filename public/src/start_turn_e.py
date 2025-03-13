@@ -42,6 +42,17 @@ def check_warrior_spirit_buff_remaining(champion):
          champion.warrior_spirit_buff -= 1
          print(color_cyan(f"Warrior's Spirit will last for {champion.warrior_spirit_buff} more turns"))
 
+def check_sundering_strike_buff_remaining(champion):
+    if getattr(champion,"sundering_strike_buff") > 0:
+         champion.sundering_strike_buff -= 1
+    if (getattr(champion,"sundering_strike_buff") == 0 
+          and getattr(champion,"sundering_strike_used_last_turn") is True):
+        champion.sundering_strike_used_last_turn = False
+        champion.SS_stack = 0
+        
+    
+
+
 
 def check_berserker_rage_buff_remaining(champion):
     if getattr(champion,"berserker_rage_buff") > 0:
@@ -60,6 +71,7 @@ def check_all_buffs(champion):
      if champion.game_class == "warrior":
         check_warrior_spirit_buff_remaining(champion)
         check_berserker_rage_buff_remaining(champion)
+        check_sundering_strike_buff_remaining(champion)
 
 
 #full check
