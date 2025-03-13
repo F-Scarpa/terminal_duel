@@ -328,6 +328,54 @@ class Mage(Races,CommonActions):
         #durations
         self.frost_shards_duration = 0
         self.stop_time_duration = 0
+        self.rewind_time_duration = 0
+        #rewind time
+        self.rewind_time_hp = 0
+        self.rewind_time_mana = 0
+        self.rewind_time_buff = 0
+        self.rewind_time_is_active = False
+        #meteor
+        self.fireball_stack = 0
+
+    def spell_meteor(self,target):
+        spell_name = ""
+        spell_description = ""
+        self.mana_cost = 50
+        if self.mana > self.mana_cost:
+            if self.fireball_stack == 3:      
+                        self.fireball_stack = 0    
+                        self.mana -= self.mana_cost
+                        damage = (self.attack * 3) - target.defe
+                        target.hp -= damage
+            else:
+                print(color_red(f"You need to cast 3 fireballs, need to cast fireball {3 - self.fireball_stack} more time"))
+                return "back_try"
+
+            print(color_yellow(f"You call a meteor from the sky dealing {damage} damage to {target.name}."))
+        else:
+            no_mana_message(self)
+
+    spell_meteor.spell_name = "Meteor"
+    spell_meteor.spell_description = f"You call a meteor from the sky. || {color_cyan("50 mana")}"
+
+
+    def spell_rewind_time_cd(self,target):
+        spell_name = ""
+        spell_description = ""
+        self.mana_cost = 100
+        if self.mana > self.mana_cost:
+            self.mana -= self.mana_cost
+            self.rewind_time_hp = self.hp
+            self.rewind_time_mana = self.mana
+            self.rewind_time_duration = 20
+            self.rewind_time_buff = 3
+            self.rewind_time_is_active = True
+            print(color_cyan("You weave a temporal anomaly, anchoring yourself in the present."))
+        else:
+            no_mana_message(self)
+    spell_rewind_time_cd.spell_name = "Rewind Time"
+    spell_rewind_time_cd.spell_description = f"After 3 turns, your HP and Mana are restored to the exact values they had when the spell was first activated. || {color_cyan("100 mana / 20 turns cooldown")}"
+
 
     def spell_frost_shards_cd(self,target):
         self.spell_name = "frost shards"
@@ -362,8 +410,12 @@ class Mage(Races,CommonActions):
         damage = self.attack - target.defe
         if self.mana >= self.mana_cost:
             self.mana -= 20
+            if self.fireball_stack < 3:
+                self.fireball_stack += 1
             target.hp -= damage
             target.fireball_dot = 3
+            if self.fireball_stack == 3:
+                print(color_cyan("You can now cast Meteor").upper())
             print(f"{color_yellow(f"Fireball deals {damage} damage to {target.name}")}")
         else:
             return no_mana_message(self)

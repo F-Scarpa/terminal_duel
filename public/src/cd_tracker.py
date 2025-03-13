@@ -12,11 +12,19 @@ def warrior_spirit_cd(champion):
     if champion.warrior_spirit_duration > 0:
         champion.warrior_spirit_duration -= 1
 
+def berserker_rage_cd(champion):
+    if champion.berserker_rage_duration > 0:
+        champion.berserker_rage_duration -= 1
+
+
+
 #mage
 def frost_shards_cd(champion):
     if champion.frost_shards_duration > 0:
         champion.frost_shards_duration -= 1
-
+def rewind_time_cd(champion):
+    if champion.rewind_time_duration > 0:
+        champion.rewind_time_duration -= 1
 
 def stop_time_cd(champion):
     if champion.stop_time_duration > 0:
@@ -33,10 +41,12 @@ def cd_tracker(champion):
 
     if champion.game_class == "warrior":
         warrior_spirit_cd(champion)
+        berserker_rage_cd(champion)
 
     if champion.game_class == "mage":
         frost_shards_cd(champion)
         stop_time_cd(champion)
+        rewind_time_cd(champion)
     
     if champion.game_class == "thief":
         shadowstep_cd(champion)

@@ -49,16 +49,21 @@ def check_sundering_strike_buff_remaining(champion):
           and getattr(champion,"sundering_strike_used_last_turn") is True):
         champion.sundering_strike_used_last_turn = False
         champion.SS_stack = 0
-        
-    
-
-
 
 def check_berserker_rage_buff_remaining(champion):
     if getattr(champion,"berserker_rage_buff") > 0:
          champion.berserker_rage_buff -= 1
          print(color_cyan(f"Berserker's Rage will last for {champion.berserker_rage_buff} more turns"))
     
+#mage buffs
+def check_rewind_time_buff_remaining(champion):
+    if getattr(champion,"rewind_time_buff") > 0:
+         champion.rewind_time_buff -= 1
+         print(color_cyan(f"Rewind time will activate after {champion.rewind_time_buff} turns"))
+    if champion.rewind_time_buff == 0 and champion.rewind_time_is_active:
+        champion.hp = champion.rewind_time_hp
+        champion.mana = champion.rewind_time_mana
+        champion.rewind_time_is_active = False
 
 
 
@@ -72,6 +77,8 @@ def check_all_buffs(champion):
         check_warrior_spirit_buff_remaining(champion)
         check_berserker_rage_buff_remaining(champion)
         check_sundering_strike_buff_remaining(champion)
+     if champion.game_class == "mage":
+         check_rewind_time_buff_remaining(champion)
 
 
 #full check
