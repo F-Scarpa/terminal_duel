@@ -10,4 +10,4 @@ If you want to try the game on your own machine, follow these steps:
 
 1) type git clone https://github.com/tuonomeutente/Terminal_Duel.git 
 2) cd Terminal_Duel
-3) python main.py
+3) python3 main.py
