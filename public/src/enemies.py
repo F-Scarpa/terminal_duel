@@ -23,6 +23,7 @@ class Enemy:
         self.cc_status = "ok"
         #thief cc
         self.shadowstep_cc = 0
+        self.paralyzed_cc = 0
     
          
 
@@ -62,8 +63,8 @@ def select_enemy():
     return enemy
 
 for name in enemy_names:
-    hp = random.randint(200, 300)
-    atk = random.randint(20, 20)
+    hp = random.randint(2000, 3000)
+    atk = random.randint(2, 2)
     defe = random.randint(0, 0)
     give_xp = random.randint(400, 10000)  # Esperienza casuale tra 10 e 50
     give_coins = random.randint(3, 15)  # Monete casuali tra 3 e 15

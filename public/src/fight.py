@@ -168,5 +168,5 @@ def fight(champion,boss = None):
         print("=======================")
 
 
-#champion = Warrior(Orc())
-#fight(champion)
+champion = Thief(Orc())
+fight(champion)

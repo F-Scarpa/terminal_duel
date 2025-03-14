@@ -1,4 +1,4 @@
-from colors import color_cyan
+from colors import color_cyan, color_yellow
 
 def print_enemy_status(target):
     print(f"\033[93m{target.name} have {target.hp}/{target.totalhp} hp left.\033[0m")
@@ -15,7 +15,7 @@ def hp_checker(champion):
 def mana_checker(champion):
     if champion.mana > champion.totalmana:
         champion.mana = champion.totalmana
-
+#resources
 #thief
 def energy_checker(champion):
     if champion.energy > champion.totalenergy:
@@ -68,10 +68,18 @@ def check_rewind_time_buff_remaining(champion):
         champion.mana = champion.rewind_time_mana
         champion.rewind_time_is_active = False
 
+def check_paralyzing_knife_dot_duration(champion,enemy):
+    if champion.paralyzing_knife_dot > 0:
+        champion.paralyzing_knife_dot -= 1
+        damage = champion.total_PK_damage // 5
+        enemy.hp -= damage
+        print(color_yellow(f"{enemy.name} suffers {int(damage)} damage"))
 
+
+    
 
 #full buff check
-def check_all_buffs(champion):
+def check_all_buffs(champion,enemy):
      #items
      check_vampiric_aegis(champion)
      check_thunderbrand(champion)
@@ -82,6 +90,10 @@ def check_all_buffs(champion):
         check_sundering_strike_buff_remaining(champion)
      if champion.game_class == "mage":
          check_rewind_time_buff_remaining(champion)
+     if champion.game_class == "thief":
+         check_paralyzing_knife_dot_duration(champion,enemy)
+
+    
 
 
 #full check
@@ -121,7 +133,7 @@ def start_turn_events(champion,enemy):
         champion.mana += mana_regen
 
     #full check
-    check_all_buffs(champion)
+    check_all_buffs(champion,enemy)
     full_check(champion)
     champion.hp = int(champion.hp)
     champion.totalhp = int(champion.totalhp)

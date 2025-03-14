@@ -469,6 +469,11 @@ class Thief(Races,CommonActions):
         #duration
         self.shadowstep_duration = 0
         self.shadowstep_buff = False
+        self.paralyzing_knife_duration = 0
+        self.paralyzing_knife_dot = 0
+        #PK
+        self.total_PK_damage = 0
+        
 
     def spell_eviscerate(self,target):
         self.spell_name = ""
@@ -495,10 +500,35 @@ class Thief(Races,CommonActions):
             target.hp -= int(damage)
             self.cp = 0
             print(color_yellow(f"You hit {target.name} for {int(damage)} damage"))
-    
-    
+
     spell_eviscerate.spell_name = "Eviscerate"
     spell_eviscerate.spell_description = f"Deal istant damage increasing by combo points. || {color_cyan(f"Requires atleast 1 combo point")}"
+
+    def spell_paralyzing_knife_cd(self,target):
+        spell_name = ""
+        spell_description = ""
+        if self.cp == 0:
+            print(color_red("This ability requires atleast 1 cp"))
+            return "no cp"
+        else:
+            match self.cp:
+                case 1:
+                    self.total_PK_damage = self.attack * 1
+                case 2:
+                    self.total_PK_damage = self.attack * 2
+                case 2:
+                    self.total_PK_damage = self.attack * 3
+                case 4:
+                    self.total_PK_damage = self.attack * 4
+                case 5:
+                    self.total_PK_damage = self.attack * 5
+            target.paralyzed_cc = self.cp
+            self.cp = 0
+            print(color_yellow(f"You stab {target.name} with a poisoned knife, paralyzing him for {target.paralyzed_cc} turns"))
+            self.paralyzing_knife_dot = 5
+            self.paralyzing_knife_duration = 8
+    spell_paralyzing_knife_cd.spell_name = "Paralyzing Knife"
+    spell_paralyzing_knife_cd.spell_description = f"Stab the enemy with a poisoned knife, paralyzing and dealing damage in the next 5 turns, both effects increase with combo points. || {color_cyan(f"Requires atleast 1 combo point")}"
 
     def spell_shadowstep_cd(self,target):
         spell_name = ""
@@ -506,14 +536,20 @@ class Thief(Races,CommonActions):
         energy_cost = 20
         if energy_cost < self.energy:
             self.energy -= 20
+            self.cp += 1
             self.shadowstep_duration = 4
             target.shadowstep_cc = 1
             self.shadowstep_buff = True
+            print("You vanish into the shadows... ")
+            time.sleep(1)
+            print("You reappear behind your enemy, striking a nerve!")
+            time.sleep(1)
+            print("The enemy is stunned and vulnerable — your next attack will deal increased damage!")
         else:
             return no_energy_message(self,energy_cost)
     spell_shadowstep_cd.energy_cost = 20
     spell_shadowstep_cd.spell_name = "Shadowstep"
-    spell_shadowstep_cd.spell_description = f"Stun the target for the next turn and empower your next damaging ability. || {color_cyan(f"{spell_shadowstep_cd.energy_cost} energy / 4 turns cooldown")}"
+    spell_shadowstep_cd.spell_description = f"Stun the target for the next turn and empower your next damaging ability and granting 1 combo point. || {color_cyan(f"{spell_shadowstep_cd.energy_cost} energy / 4 turns cooldown")}"
 
 
 
@@ -521,7 +557,7 @@ class Thief(Races,CommonActions):
         spell_name = ""
         spell_description = ""
         energy_cost = 30
-        if energy_cost < self.energy:
+        if energy_cost <= self.energy:
             self.energy -= energy_cost
             damage = (int(self.attack * 1.4)) - target.defe
             if target.hp == target.totalhp:

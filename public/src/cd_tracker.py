@@ -35,6 +35,9 @@ def shadowstep_cd(champion):
     if champion.shadowstep_duration > 0:
         champion.shadowstep_duration -= 1 
 
+def paralyzing_knife_cd(champion):
+    if champion.paralyzing_knife_duration > 0:
+        champion.paralyzing_knife_duration -= 1
 
 def cd_tracker(champion):
     first_aid_cd(champion)
@@ -50,6 +53,7 @@ def cd_tracker(champion):
     
     if champion.game_class == "thief":
         shadowstep_cd(champion)
+        paralyzing_knife_cd(champion)
 
     
 
