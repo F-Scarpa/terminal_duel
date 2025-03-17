@@ -544,9 +544,9 @@ class Thief(Races,CommonActions):
             target.shadowstep_cc = 1
             self.shadowstep_buff = True
             print("You vanish into the shadows... ")
-            time.sleep(1)
+            time.sleep(0.5)
             print("You reappear behind your enemy, striking a nerve!")
-            time.sleep(1)
+            time.sleep(0.5)
             print("The enemy is stunned and vulnerable — your next attack will deal increased damage!")
         else:
             return no_energy_message(self,energy_cost)
@@ -561,7 +561,8 @@ class Thief(Races,CommonActions):
             self.cp += 2
             damage = (self.attack * 3) - (target.defe)
             target.hp -= damage
-            print(color_yellow(f"You hit {target.name} for {damage} damage"))
+            self.fm_used = False
+            print(color_yellow(f"You hit {target.name} for {int(damage)} damage"))
         else:
             print(color_red("you need to use a finishing move first"))
             return "back_try"

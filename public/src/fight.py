@@ -148,6 +148,19 @@ def fight(champion,boss = None):
 
 
             start_turn_events(champion,enemy)
+            if enemy.hp <= 0:
+                if boss:
+                    print(color_green("😊   GG! You defeated the final boss, you won the game!!!  😊"))
+                    sys.exit()
+                else:
+                    # orc racial
+                    if orc_r == True:
+                        orc_racial(champion,-30)
+
+                    won_fight(champion,enemy)
+                    
+                break
+
             
             turn_counter += 1
             player_turn = True

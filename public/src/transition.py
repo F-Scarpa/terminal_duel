@@ -9,7 +9,7 @@ from xp_for_levels import max_level
 
 #champion = Thief(Troll())
 def print_general_stats(champion):
-    print(f"Combat stats: {int(champion.hp)}/{champion.totalhp} HP || attack: {champion.attack} || defense: {champion.defence}")
+    print(f"Combat stats: {int(champion.hp)}/{champion.totalhp} HP || attack: {int(champion.dummy_attack)} || defense: {int(champion.dummy_defence)}")
     print(f"° LEVEL: {champion.level}")
     print(f"° You have {champion.total_coins} coins ",end="||")
     if champion.level < max_level:

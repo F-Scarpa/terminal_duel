@@ -65,7 +65,7 @@ def won_fight(champion,enemy):
     if check_hasattr_resources(champion,"mana"):
         champion.mana = champion.totalmana
 
-    champion.hp += (champion.totalhp/100) * 10
+    #champion.hp += (champion.totalhp/100) * 10
     hp_checker(champion)
 
     all_attrs = dir(champion)
@@ -76,7 +76,7 @@ def won_fight(champion,enemy):
     for attr in durations_list:
         setattr(champion,attr,0)
     for player_buffs in all_attrs:
-        if player_buffs.endswith("_buff"):
+        if player_buffs.endswith("_buff") or player_buffs.endswith("_dot"):
             setattr(champion,player_buffs,0)
 
     enemy.cc_status = "ok"
