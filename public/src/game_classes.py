@@ -457,6 +457,7 @@ class Thief(Races,CommonActions):
         self.race = race_node.race
         self.game_class = "thief"
         #resources
+        self.fm_used = False
         self.cp = 0
         self.totalcp = 5
         self.totalenergy = 100
@@ -498,6 +499,7 @@ class Thief(Races,CommonActions):
                     damage *= 6
 
             target.hp -= int(damage)
+            self.fm_used = True
             self.cp = 0
             print(color_yellow(f"You hit {target.name} for {int(damage)} damage"))
 
@@ -524,6 +526,7 @@ class Thief(Races,CommonActions):
                     self.total_PK_damage = self.attack * 5
             target.paralyzed_cc = self.cp
             self.cp = 0
+            self.fm_used = True
             print(color_yellow(f"You stab {target.name} with a poisoned knife, paralyzing him for {target.paralyzed_cc} turns"))
             self.paralyzing_knife_dot = 5
             self.paralyzing_knife_duration = 8
@@ -551,6 +554,19 @@ class Thief(Races,CommonActions):
     spell_shadowstep_cd.spell_name = "Shadowstep"
     spell_shadowstep_cd.spell_description = f"Stun the target for the next turn and empower your next damaging ability and granting 1 combo point. || {color_cyan(f"{spell_shadowstep_cd.energy_cost} energy / 4 turns cooldown")}"
 
+    def spell_follow_up_tactic(self,target):
+        spell_name =""
+        spell_description = ""
+        if self.fm_used:
+            self.cp += 2
+            damage = (self.attack * 3) - (target.defe)
+            target.hp -= damage
+            print(color_yellow(f"You hit {target.name} for {damage} damage"))
+        else:
+            print(color_red("you need to use a finishing move first"))
+            return "back_try"
+    spell_follow_up_tactic.spell_name = "Followup Strike"
+    spell_follow_up_tactic.spell_description = "Deal damage to the enemy and awards 2 combo points, only useable after a finishing move"
 
 
     def spell_swift_strike(self,target):

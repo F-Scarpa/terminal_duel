@@ -72,6 +72,8 @@ def check_paralyzing_knife_dot_duration(champion,enemy):
     if champion.paralyzing_knife_dot > 0:
         champion.paralyzing_knife_dot -= 1
         damage = champion.total_PK_damage // 5
+        if damage <= 1:
+            damage = 1
         enemy.hp -= damage
         print(color_yellow(f"{enemy.name} suffers {int(damage)} damage"))
 
